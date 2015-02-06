@@ -1,5 +1,7 @@
 FROM ruby:2.2.0
 
+MAINTAINER Kazuki Fukui
+
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends wget nodejs sqlite3
 RUN apt-get clean
