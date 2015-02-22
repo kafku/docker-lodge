@@ -2,15 +2,18 @@ FROM ruby:2.2.0
 
 MAINTAINER Kazuki Fukui
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends wget nodejs sqlite3
-RUN apt-get clean
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends wget nodejs sqlite3 && \
+    apt-get -y autoremove && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # download lodge
 ENV LODGE_VERSION 0.10.1
-RUN wget --no-check-certificate https://github.com/lodge/lodge/archive/v${LODGE_VERSION}.tar.gz
-RUN tar xf v${LODGE_VERSION}.tar.gz
-RUN ln -s /lodge-${LODGE_VERSION} lodge
+RUN wget --no-check-certificate https://github.com/lodge/lodge/archive/v${LODGE_VERSION}.tar.gz && \
+    tar xf v${LODGE_VERSION}.tar.gz && \
+    rm -rf v${LODGE_VERSION}.tar.gz && \
+    ln -s /lodge-${LODGE_VERSION} lodge
 WORKDIR /lodge
 RUN gem install bundler
 
@@ -25,8 +28,8 @@ production:\n\
   database: /db/lodge_production.sqlite3\n\
 "> ./config/database.yml
 
-RUN bundle install --path vendor/bundle
-RUN sed -ie 's/serve_static_assets/serve_static_files/' \
+RUN bundle install --clean --quiet --path vendor/bundle && \
+    sed -ie 's/serve_static_assets/serve_static_files/' \
   ./config/environments/production.rb
 
 # set env
@@ -36,8 +39,8 @@ ENV SMTP_AUTH_METHOD plain
 ENV SMTP_ENABLE_STARTTLS_AUTO true
 ENV LODGE_THEME lodge
 
-RUN mkdir /lodge/tmp/
-RUN printf "#!/bin/bash\n\
+RUN mkdir /lodge/tmp/ && \
+    printf "#!/bin/bash\n\
 _term() {\n\
 	kill -Term $child 2>/dev/null\n\
 }\n\
