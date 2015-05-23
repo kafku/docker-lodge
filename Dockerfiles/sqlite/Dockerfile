@@ -27,7 +27,8 @@ RUN bundle install --clean --quiet --path vendor/bundle && \
     sed -ie 's/serve_static_assets/serve_static_files/' \
   ./config/environments/production.rb && \
   mkdir /lodge/tmp/ && \
-  chmod 775 ./start_lodge.sh
+  chmod 775 ./start_lodge.sh && \
+  bundle exec rake emoji
 
 # set env
 ENV DELIVERY_METHOD smtp
