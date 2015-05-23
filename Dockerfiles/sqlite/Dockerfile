@@ -9,7 +9,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # download lodge
-ENV LODGE_VERSION 0.10.1
+ENV LODGE_VERSION 0.11.2
 RUN wget --no-check-certificate https://github.com/lodge/lodge/archive/v${LODGE_VERSION}.tar.gz && \
     tar xf v${LODGE_VERSION}.tar.gz && \
     rm -rf v${LODGE_VERSION}.tar.gz && \
