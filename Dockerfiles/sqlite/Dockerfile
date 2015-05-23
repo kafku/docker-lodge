@@ -27,9 +27,7 @@ RUN bundle install --clean --quiet --path vendor/bundle && \
     sed -ie 's/serve_static_assets/serve_static_files/' \
   ./config/environments/production.rb && \
   mkdir /lodge/tmp/ && \
-  chmod 775 ./start_lodge.sh && \
-  gem install charlock_holmes -v '0.7.3' && \
-  bundle exec rake emoji
+  chmod 775 ./start_lodge.sh
 
 # set env
 ENV DELIVERY_METHOD smtp
