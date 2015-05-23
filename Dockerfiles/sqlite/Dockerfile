@@ -28,6 +28,7 @@ RUN bundle install --clean --quiet --path vendor/bundle && \
   ./config/environments/production.rb && \
   mkdir /lodge/tmp/ && \
   chmod 775 ./start_lodge.sh && \
+  gem install charlock_holmes -v '0.7.3' && \
   bundle exec rake emoji
 
 # set env
