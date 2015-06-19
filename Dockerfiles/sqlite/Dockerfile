@@ -3,7 +3,7 @@ FROM ruby:2.2.0
 MAINTAINER Kazuki Fukui
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends wget nodejs sqlite3 && \
+    apt-get install -y --no-install-recommends wget nodejs sqlite3 libicu-dev && \
     apt-get -y autoremove && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
